@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════════════════════
+   DESIGN TOKEN SYSTEM — Three-Layer Architecture
+   Skill: UI/UX Pro Max v2.5.0 | Stack: Next.js + Tailwind
+   Theme: Premium Dark Mobile-First
+════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── 1. PRIMITIVE TOKENS ─────────────────────────────── */
+  --color-slate-950: #020617;
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-orange-500: #f97316;
+  --color-orange-600: #ea580c;
+  --color-green-500: #10b981;
+  --color-red-500:   #ef4444;
+  --color-white:     #ffffff;
+
+  /* ── 2. SEMANTIC TOKENS ──────────────────────────────── */
+  --color-bg:            var(--color-slate-950);
+  --color-bg-elevated:   var(--color-slate-900);
+  --color-surface:       rgba(255, 255, 255, 0.04);
+  --color-surface-mid:   rgba(255, 255, 255, 0.06);
+  --color-surface-high:  rgba(255, 255, 255, 0.08);
+  --color-surface-nav:   rgba(15, 23, 42, 0.88);
+  --color-border:        rgba(255, 255, 255, 0.09);
+  --color-border-mid:    rgba(255, 255, 255, 0.12);
+  --color-border-focus:  rgba(245, 158, 11, 0.60);
+  --color-border-ring:   rgba(245, 158, 11, 0.14);
+  --color-primary:       var(--color-amber-500);
+  --color-primary-dark:  var(--color-orange-600);
+  --color-on-primary:    var(--color-white);
+  --color-text:          #f8fafc;
+  --color-text-muted:    var(--color-slate-400);
+  --color-text-dim:      var(--color-slate-500);
+  --color-text-disabled: var(--color-slate-700);
+  --color-success:       var(--color-green-500);
+  --color-error:         var(--color-red-500);
+
+  /* ── 3. COMPONENT TOKENS ─────────────────────────────── */
+  --btn-primary-bg:     linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  --btn-primary-shadow: 0 8px 24px rgba(234, 88, 12, 0.28), 0 2px 8px rgba(0,0,0,0.20);
+  --card-radius:        1.75rem;   /* 28px */
+  --card-radius-sm:     1.375rem;  /* 22px */
+  --nav-height:         5rem;      /* 80px */
+  --input-height:       3.5rem;    /* 56px — min 44px touch target */
+  --btn-height:         3.5rem;
+  --btn-height-lg:      4rem;
+
+  /* ── 4. ANIMATION & MOTION TOKENS ───────────────────── */
+  --dur-micro:   150ms;
+  --dur-base:    250ms;
+  --dur-slow:    400ms;
+  --ease-enter:  cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-exit:   cubic-bezier(0.4, 0.0, 1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-std:    cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* ── 5. LAYOUT TOKENS ────────────────────────────────── */
+  --blur-sm:  blur(8px);
+  --blur-md:  blur(12px);
+  --blur-lg:  blur(20px);
+  --blur-xl:  blur(28px);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   BASE STYLES
+════════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Cairo', 'Inter', system-ui, sans-serif;
+  /* 16px minimum — prevents iOS auto-zoom on input focus */
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Inter للأرقام والمحتوى اللاتيني */
+:lang(en), [dir="ltr"], .font-inter {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font-family: 'Cairo', 'Inter', sans-serif;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* 16px minimum prevents iOS auto-zoom */
+  font-size: 1rem;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+════════════════════════════════════════════════════════════════ */
+
+/* Glass Surfaces — GPU-accelerated */
+.glass {
+  background: var(--color-surface);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--color-border);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.glass-mid {
+  background: var(--color-surface-mid);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--color-border-mid);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.glass-strong {
+  background: var(--color-surface-nav);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: 1px solid var(--color-border);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  box-shadow: var(--btn-primary-shadow);
+  color: var(--color-on-primary);
+  font-weight: 700;
+  border: none;
+  transition: transform var(--dur-micro) var(--ease-exit),
+              box-shadow var(--dur-base) var(--ease-enter);
+  cursor: pointer;
+}
+.btn-primary:hover {
+  box-shadow: 0 12px 32px rgba(234, 88, 12, 0.40), 0 2px 8px rgba(0,0,0,0.25);
+}
+.btn-primary:active {
+  transform: scale(0.96);
+}
+.btn-primary:disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--color-text);
+  font-weight: 700;
+  transition: transform var(--dur-micro) var(--ease-exit),
+              background var(--dur-base) var(--ease-enter);
+  cursor: pointer;
+}
+.btn-ghost:active {
+  transform: scale(0.97);
+  background: rgba(255,255,255,0.13);
+}
+
+/* Press Scale — micro-interaction for tappable elements */
+.press-scale {
+  transition: transform var(--dur-micro) var(--ease-exit);
+}
+.press-scale:active {
+  transform: scale(0.97) !important;
+}
+
+/* Safe-area bottom padding */
+.pb-safe {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+/* Scrollbar hide */
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s linear infinite;
+}
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Spin */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide in up */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Orb helper — GPU background element */
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ACCESSIBILITY — prefers-reduced-motion
+════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  .animate-float,
+  .animate-pulse-fast,
+  .skeleton {
+    animation: none !important;
+    transform: none !important;
+    background: rgba(255,255,255,0.06) !important;
+  }
+}
