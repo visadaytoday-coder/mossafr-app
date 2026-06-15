@@ -704,10 +704,10 @@ export default function DashboardPage() {
                           style={{ background: m.diffBg, color: m.diffColor, border: `1px solid ${m.diffColor}40` }}>
                           {m.difficulty}
                         </span>
-                        <button className="btn-ghost px-4 rounded-card-sm text-xs font-bold" style={{ height: "var(--btn-height)" }}
-                          aria-label={`فتح دليل ${m.name}`}>
-                          فتح الدليل
-                        </button>
+                        <a href={`https://ditu.amap.com/search?query=${encodeURIComponent(m.name)}`} target="_blank" rel="noreferrer" className="btn-ghost px-4 rounded-card-sm text-xs font-bold flex items-center justify-center gap-1.5" style={{ height: "var(--btn-height)" }}
+                          aria-label={`فتح ${m.name} في Amap`}>
+                          📍 Amap
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -734,10 +734,10 @@ export default function DashboardPage() {
                       <p className="text-xs line-clamp-2 mb-3" style={{ color: "var(--color-text-muted)" }}>{s.desc}</p>
                       <div className="flex items-center justify-between">
                         <span style={{ color: "var(--color-primary)" }} aria-label="تقييم 5 نجوم">★★★★★</span>
-                        <button className="btn-ghost px-4 rounded-card-sm text-xs font-bold" style={{ height: "var(--btn-height)" }}
-                          aria-label={`فتح دليل ${s.name}`}>
-                          فتح الدليل
-                        </button>
+                        <a href={`https://ditu.amap.com/search?query=${encodeURIComponent(s.name)}`} target="_blank" rel="noreferrer" className="btn-ghost px-4 rounded-card-sm text-xs font-bold flex items-center justify-center gap-1.5" style={{ height: "var(--btn-height)" }}
+                          aria-label={`فتح ${s.name} في Amap`}>
+                          📍 Amap
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -766,10 +766,10 @@ export default function DashboardPage() {
                     <p className="text-xs line-clamp-2 mb-3" style={{ color: "var(--color-text-muted)" }}>{r.desc}</p>
                     <div className="flex items-center justify-between gap-3">
                       <span className="text-[10px] font-bold" style={{ color: "var(--color-text-dim)" }}>📍 {r.location}</span>
-                      <button className="btn-ghost px-4 rounded-card-sm text-xs font-bold" style={{ height: "var(--btn-height)" }}
-                        aria-label={`فتح دليل ${r.name}`}>
-                        الدليل
-                      </button>
+                      <a href={`https://ditu.amap.com/search?query=${encodeURIComponent(r.name)}`} target="_blank" rel="noreferrer" className="btn-ghost px-4 rounded-card-sm text-xs font-bold flex items-center justify-center gap-1.5" style={{ height: "var(--btn-height)" }}
+                        aria-label={`فتح ${r.name} في Amap`}>
+                        📍 Amap
+                      </a>
                     </div>
                   </div>
                 ))}
