@@ -673,10 +673,16 @@ export default function DashboardPage() {
                       </div>
                       <p className="text-xs line-clamp-1" style={{ color: "var(--color-text-muted)" }}>{app.desc}</p>
                     </div>
-                    <button className="btn-ghost flex-shrink-0 px-4 rounded-card-sm text-xs font-bold" style={{ height: "var(--btn-height)" }}
-                      aria-label={`فتح دليل ${app.name}`}>
-                      الدليل
-                    </button>
+                    <div className="flex flex-col gap-1.5 flex-shrink-0">
+                      <a href="#" className="btn-ghost px-3 rounded-card-sm text-[10px] font-bold flex items-center justify-center gap-1.5" style={{ height: "26px" }} aria-label={`iOS ${app.name}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.04 2.34-.85 3.73-.8 1.44.03 2.59.54 3.37 1.48-2.92 1.64-2.45 5.51.52 6.78-.71 1.76-1.57 3.51-2.7 4.71zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                        iOS
+                      </a>
+                      <a href="#" className="btn-ghost px-3 rounded-card-sm text-[10px] font-bold flex items-center justify-center gap-1.5" style={{ height: "26px" }} aria-label={`Android ${app.name}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414l3.124-5.412a.22.22 0 0 0-.081-.301.226.226 0 0 0-.306.082l-3.17 5.492A11.164 11.164 0 0 0 12 14.127c-1.848 0-3.585.437-5.09 1.205L3.74 9.84a.226.226 0 0 0-.306-.082.22.22 0 0 0-.081.301l3.124 5.412C3.123 17.202 1 20.315 1 23.953h22c0-3.638-2.123-6.751-5.477-8.611zM8.136 21.054a1.085 1.085 0 1 1 0-2.17 1.085 1.085 0 0 1 0 2.17zm7.728 0a1.085 1.085 0 1 1 0-2.17 1.085 1.085 0 0 1 0 2.17z"/></svg>
+                        Android
+                      </a>
+                    </div>
                   </div>
                 ))}
               </div>
