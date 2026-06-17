@@ -142,6 +142,35 @@ const HALAL = [
   { name: "مطاعم الأويغور (Xinjiang)", desc: "منتشرة في كل الشوارع — ابحث عن كلمة (清真).", location: "متوفر في كافة المناطق" },
 ];
 
+const CITY_DATA = {
+  guangzhou: {
+    name: "قوانغتشو",
+    markets: [
+      { name: "مجمع معرض الكانتون", desc: "أكبر معرض تجاري في الصين", amap: "Canton Fair Complex" },
+      { name: "سوق بايما للملابس", desc: "أشهر سوق ملابس بالجملة", amap: "Baima Clothing Market" },
+      { name: "سوق زهانشي للساعات", desc: "ساعات وإكسسوارات", amap: "Zhanxi Watch Market" },
+    ],
+    halal: [
+      { name: "مطعم البسفور التركي", desc: "مأكولات تركية وشامية", amap: "Bosphorus Turkish Restaurant Guangzhou" },
+      { name: "مطعم سبأ", desc: "مأكولات يمنية وعربية", amap: "Saba Restaurant Guangzhou" },
+      { name: "مطعم 1001 ليلة", desc: "مشاوي وأطباق شرقية", amap: "1001 Nights Restaurant Guangzhou" },
+    ]
+  },
+  yiwu: {
+    name: "ييوو",
+    markets: [
+      { name: "سوق الفوتيان (المدينة التجارية)", desc: "أكبر سوق جملة للسلع الصغيرة في العالم", amap: "Yiwu International Trade City" },
+      { name: "سوق هوانغ يوان", desc: "متخصص في الملابس", amap: "Huangyuan Clothing Market Yiwu" },
+      { name: "شارع بينوانغ", desc: "سوق ليلي مفعم بالحيوية", amap: "Binwang Night Market Yiwu" },
+    ],
+    halal: [
+      { name: "مطعم المائدة", desc: "مأكولات عربية متنوعة", amap: "Al Maida Restaurant Yiwu" },
+      { name: "مطعم الأقصى", desc: "أكل شامي أصيل", amap: "Aqsa Restaurant Yiwu" },
+      { name: "مطعم طربوش", desc: "شاورما ومشويات", amap: "Tarboush Restaurant Yiwu" },
+    ]
+  }
+};
+
 // ─── Style helpers using CSS tokens ──────────────────────────────────────────
 const S_GLASS = {
   background: "var(--color-surface)",
@@ -168,6 +197,7 @@ export default function DashboardPage() {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeGuideFilter, setActiveGuideFilter] = useState("apps");
+  const [expandedCity, setExpandedCity] = useState<"guangzhou" | "yiwu" | null>(null);
 
   // الاستماع الديناميكي لمعرف الإشعار النشط ومحتواه
   const [liveNotice, setLiveNotice] = useState("جاري جلب ملاحظة اليوم...");
@@ -555,6 +585,73 @@ export default function DashboardPage() {
                   </div>
                 ))}
               </div>
+            </section>
+
+            {/* 6️⃣ CITY PLACES (Yiwu & Guangzhou) */}
+            <section className="rounded-card-lg p-5" style={S_GLASS}>
+              <h3 className="text-sm font-black text-white mb-4">دليل المدن السريع</h3>
+              <div className="flex gap-3 mb-2">
+                <button 
+                  onClick={() => setExpandedCity(expandedCity === 'guangzhou' ? null : 'guangzhou')}
+                  className="flex-1 py-3 rounded-card-sm font-bold text-sm press-scale transition-all flex items-center justify-center gap-2"
+                  style={{ background: expandedCity === 'guangzhou' ? "var(--btn-primary-bg)" : "rgba(255,255,255,0.06)", border: "1px solid var(--color-border)", color: expandedCity === 'guangzhou' ? "#fff" : "var(--color-text-muted)" }}>
+                  📍 قوانغتشو
+                </button>
+                <button 
+                  onClick={() => setExpandedCity(expandedCity === 'yiwu' ? null : 'yiwu')}
+                  className="flex-1 py-3 rounded-card-sm font-bold text-sm press-scale transition-all flex items-center justify-center gap-2"
+                  style={{ background: expandedCity === 'yiwu' ? "var(--btn-primary-bg)" : "rgba(255,255,255,0.06)", border: "1px solid var(--color-border)", color: expandedCity === 'yiwu' ? "#fff" : "var(--color-text-muted)" }}>
+                  📍 ييوو
+                </button>
+              </div>
+              
+              {expandedCity && (
+                <div className="mt-4 space-y-5" style={{ animation: "fadeIn 0.3s ease-out" }}>
+                  <div>
+                    <h4 className="text-xs font-bold text-white mb-3 flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center text-xs">🛍️</span>
+                      أهم الأسواق في {CITY_DATA[expandedCity].name}
+                    </h4>
+                    <div className="space-y-2">
+                      {CITY_DATA[expandedCity].markets.map(m => (
+                        <div key={m.name} className="flex items-center justify-between p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                          <div>
+                            <p className="text-xs font-bold text-white mb-0.5">{m.name}</p>
+                            <p className="text-[10px]" style={{ color: "var(--color-text-dim)" }}>{m.desc}</p>
+                          </div>
+                          <a href={`https://ditu.amap.com/search?query=${encodeURIComponent(m.amap)}`} target="_blank" rel="noreferrer" 
+                             className="flex-shrink-0 btn-ghost px-3 h-8 rounded-lg text-[10px] font-bold flex items-center justify-center gap-1.5 press-scale"
+                             aria-label={`Amap ${m.name}`}>
+                             📍 Amap
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-xs font-bold text-white mb-3 flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-xs">🍽️</span>
+                      مطاعم حلال في {CITY_DATA[expandedCity].name}
+                    </h4>
+                    <div className="space-y-2">
+                      {CITY_DATA[expandedCity].halal.map(m => (
+                        <div key={m.name} className="flex items-center justify-between p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                          <div>
+                            <p className="text-xs font-bold text-white mb-0.5">{m.name}</p>
+                            <p className="text-[10px]" style={{ color: "var(--color-text-dim)" }}>{m.desc}</p>
+                          </div>
+                          <a href={`https://ditu.amap.com/search?query=${encodeURIComponent(m.amap)}`} target="_blank" rel="noreferrer" 
+                             className="flex-shrink-0 btn-ghost px-3 h-8 rounded-lg text-[10px] font-bold flex items-center justify-center gap-1.5 press-scale"
+                             aria-label={`Amap ${m.name}`}>
+                             📍 Amap
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </section>
 
           </div>
