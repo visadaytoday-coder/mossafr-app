@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   keywords: "الصين, قوانغتشو, Canton Fair, معرض الكانتون, الجزائر, استيراد",
 };
 
-// السماح للمستخدمين بالتحكم في تكبير الشاشة — معيار وصول WCAG إجباري
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -15,7 +14,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   userScalable: true,
   viewportFit: "cover",
-  themeColor: "#020617",
+  themeColor: "#1E3A27",
 };
 
 export default function RootLayout({
@@ -26,11 +25,11 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <head>
-        {/* تحسين سرعة جلب الخطوط — يمنع Layout Shift */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="antialiased selection:bg-amber-500/30 selection:text-amber-200">
+      <body className="antialiased selection:bg-emerald-600/20 selection:text-emerald-900">
         {children}
       </body>
     </html>
